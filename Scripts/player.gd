@@ -2,6 +2,7 @@ extends KinematicBody
 
 var movement_speed = 50
 var mouse_sensitivity = 0.005
+var sprinting = false
 
 func _unhandled_input(event):
 	#mouse rotation
@@ -24,6 +25,11 @@ func get_movement_input():
 		movement_direction -= global_transform.basis.x
 	elif Input.is_action_pressed("move-right"):
 		movement_direction += global_transform.basis.x
+	
+	if Input.is_action_pressed("sprint"):
+		movement_speed = 100
+	else:
+		movement_speed = 50
 	
 	movement_direction = movement_direction.normalized()
 	
