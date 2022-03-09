@@ -1,7 +1,11 @@
 extends KinematicBody
 
-var movement_speed = 50
+var current_speed = Vector3(0, 0, 0)
+var movement_speed = 0.5
 var mouse_sensitivity = 0.005
+var gravity = -50
+var jump = false
+var stop_jump = true
 var sprinting = false
 
 func _unhandled_input(event):
@@ -26,10 +30,12 @@ func get_movement_input():
 	elif Input.is_action_pressed("move-right"):
 		movement_direction += global_transform.basis.x
 	
+	# sprinting
 	if Input.is_action_pressed("sprint"):
 		movement_speed = 100
 	else:
 		movement_speed = 50
+	
 	
 	movement_direction = movement_direction.normalized()
 	
@@ -45,6 +51,29 @@ func check_keyboard_input():
 
 func _physics_process(delta):
 	check_keyboard_input()
-	var current_speed = get_movement_input() * movement_speed
+	current_speed = get_movement_input() * movement_speed
+	
+	# jumping
+	if Input.is_action_pressed("jump"):
+		jump = true
+		if current_speed.y >= 0.08:
+			stop_jump = true
+		if not stop_jump:
+			current_speed.y = lerp(current_speed.y, 50, 0.01)
+	elif Input.is_action_just_released("jump"):
+		jump = false
+		stop_jump = false
+	
+	
+	# add gravity
+	if not is_on_floor():
+		if jump:
+			current_speed.y += gravity * delta * 0.5
+		else:
+			current_speed.y += gravity * delta
+	else:
+		current_speed.y = lerp(current_speed, 0, 0.1)
+	
+	print(current_speed)
 	
 	move_and_slide(current_speed)
