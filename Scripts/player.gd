@@ -46,6 +46,12 @@ func check_keyboard_input():
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	# crouching
+	if Input.is_action_just_pressed("crouch"):
+		$CollisionShape.shape.height = 2
+	elif Input.is_action_just_released("crouch"):
+		$CollisionShape.shape.height = 4
 
 func _physics_process(delta):
 	check_keyboard_input()
