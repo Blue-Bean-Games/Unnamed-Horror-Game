@@ -1,11 +1,10 @@
 extends KinematicBody
 
 var current_speed = Vector3(0, 0, 0)
+var jump_vector = Vector3(0, 0, 0)
 var movement_speed = 0.5
 var mouse_sensitivity = 0.005
-var gravity = -50
-var jump = false
-var stop_jump = true
+var gravity = -100
 var sprinting = false
 
 func _unhandled_input(event):
@@ -36,7 +35,6 @@ func get_movement_input():
 	else:
 		movement_speed = 50
 	
-	
 	movement_direction = movement_direction.normalized()
 	
 	return movement_direction
@@ -54,26 +52,14 @@ func _physics_process(delta):
 	current_speed = get_movement_input() * movement_speed
 	
 	# jumping
-	if Input.is_action_pressed("jump"):
-		jump = true
-		if current_speed.y >= 0.08:
-			stop_jump = true
-		if not stop_jump:
-			current_speed.y = lerp(current_speed.y, 50, 0.01)
-	elif Input.is_action_just_released("jump"):
-		jump = false
-		stop_jump = false
-	
+	if Input.is_action_pressed("jump") and is_on_floor():
+		jump_vector.y = 20
 	
 	# add gravity
 	if not is_on_floor():
-		if jump:
-			current_speed.y += gravity * delta * 0.5
-		else:
-			current_speed.y += gravity * delta
-	else:
-		current_speed.y = lerp(current_speed, 0, 0.1)
+		jump_vector.y += gravity * delta
 	
 	print(current_speed)
 	
 	move_and_slide(current_speed)
+	move_and_slide(jump_vector, Vector3.UP)
