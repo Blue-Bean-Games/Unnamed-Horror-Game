@@ -39,6 +39,15 @@ func get_movement_input():
 	
 	return movement_direction
 
+func get_movement_axis():
+	# axis movement
+	var movement_direction = Vector3(0, 0, 0)
+	
+	movement_direction += global_transform.basis.z * Input.get_axis("move-backwards", "move-forwards")
+	movement_direction += global_transform.basis.x * Input.get_axis("move-left", "move-right")
+	
+	return movement_direction
+
 func check_keyboard_input():
 	# pause menu
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -64,8 +73,15 @@ func check_keyboard_input():
 		movement_speed = 50
 
 func _physics_process(delta):
+	
+	var vector_direction : Vector3
+	if get_movement_axis() == Vector3(0, 0, 0):
+		vector_direction = get_movement_axis()
+	else:
+		vector_direction = get_movement_input()
+	
 	check_keyboard_input()
-	current_speed = get_movement_input() * movement_speed
+	current_speed = vector_direction * movement_speed
 	
 	# jumping
 	if Input.is_action_pressed("jump") and is_on_floor():
