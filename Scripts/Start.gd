@@ -5,6 +5,7 @@ func _ready():
 
 func _on_EpisodesButton_pressed():
 	print("EpisodesButton Pressed!")
+	get_tree().change_scene("res://Scenes/proto-world.tscn")
 
 func _on_OptionsButton_pressed():
 	print("OptionsButton Pressed!")
