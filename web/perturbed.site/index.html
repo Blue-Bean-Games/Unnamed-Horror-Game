@@ -10,6 +10,9 @@
 
       html {
         background: black;
+        height: 100%;
+        overflow: hidden;
+        user-select: none;
       }
 
       body {
@@ -19,10 +22,11 @@
 
       span {
         position: absolute;
-        top: 50%;
+        top: 25%;
         left: 50%;
         transform: translate(-50%, -50%);
-        font-size: 2em;
+        font-size: 3em;
+        text-align: center;
       }
 
       .glitch {
@@ -45,6 +49,27 @@
     </style>
   </head>
   <body>
-    <span class="glitch">october 24th</span>
+    <span class="glitch"> october 24th </span>
   </body>
+  <script>
+    var seed = Math.floor(Math.random() * 6);
+
+    // seed = 1; // dev seed override
+
+    var backgroundEffects = [
+      "saturate(50%) hue-rotate(170deg)", // bg0
+      "saturate(50%) hue-rotate(170deg)", // bg1
+      "saturate(25%)", // bg2
+      "saturate(50%) hue-rotate(170deg)", // bg3
+      "saturate(50%) hue-rotate(170deg) contrast(1.2)", // bg4
+      "saturate(50%) hue-rotate(170deg)", // bg5
+    ];
+
+    var html = document.querySelector("html");
+
+    html.style.background = `url(./img/bg${seed}.jpg) no-repeat center center fixed`;
+    html.style.filter = backgroundEffects[seed];
+
+    document.oncontextmenu = new Function("return false;"); // disable right-click
+  </script>
 </html>
