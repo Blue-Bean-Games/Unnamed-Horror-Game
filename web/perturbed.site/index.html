@@ -68,6 +68,7 @@
     var html = document.querySelector("html");
 
     html.style.background = `url(./img/bg${seed}.jpg) no-repeat center center fixed`;
+    html.style.backgroundSize = `cover`;
     html.style.filter = backgroundEffects[seed];
 
     document.oncontextmenu = new Function("return false;"); // disable right-click
