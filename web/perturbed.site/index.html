@@ -1,1 +1,50 @@
-Coming soon... ♥ ;>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>October 24th</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap");
+
+      html {
+        background: black;
+      }
+
+      body {
+        font-family: "Major Mono Display", monospace;
+        color: white;
+      }
+
+      span {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2em;
+      }
+
+      .glitch {
+        text-shadow: 0.06rem 0 0.06rem #ea36af, -0.125rem 0 0.06rem #75fa69;
+        letter-spacing: 0.125em;
+        animation-duration: 0.01s;
+        animation-name: glitch;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+      }
+
+      @keyframes glitch {
+        from {
+          text-shadow: 1px 0 0 #ea36af, -2px 0 0 #75fa69;
+        }
+        to {
+          text-shadow: 2px 0.5px 2px #ea36af, -1px -0.5px 2px #75fa69;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <span class="glitch">october 24th</span>
+  </body>
+</html>
